@@ -45,7 +45,7 @@ No extra sections. No explanations.`,
 
     TITLE: `Return ONLY a 2–4 word title; no colons/parentheses; PG-13; punchy.
 
-[Title] Your Title]`,
+[Title] Your Title`,
 
     ADD_VERSE: `You are expanding an existing song. Add exactly one [Verse] matching the given lyrics’ meter/rhyme/tone. Do not modify existing text.
 Output only the new [Verse].`,

@@ -197,7 +197,22 @@
     const lines = text.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
     const cap = lines.slice(0,2).join('\n');
     $('#out-captions').textContent = cap;
+    const hasChorus = !!grabChorus(text);
+    const hasHook = !!grabHook(text);
+    $('#btn-copy-chorus').disabled = !hasChorus;
+    $('#btn-copy-hook').disabled = !hasHook;
   }
+
+  // Override setOutput hook-aware
+  let setOutputMini = null;
+  const _setOutputReal = setOutput;
+  window.__setOutput = undefined;
+  function setOutputPatched(text){
+    if (window.__setOutput) return window.__setOutput(text);
+    return _setOutputReal(text);
+  }
+  // replace references
+  setOutput = setOutputPatched;
 
   function grabChorus(text){
     const m = text.match(/\[Chorus\][\s\S]*?(?=\n\[[A-Z][^\]]+\]|\s*$)/);
@@ -422,7 +437,7 @@
       $('.badge.model', node).textContent = it.model;
       $('.time', node).textContent = fmtDate(it.createdAt);
       $('.lib-output', node).textContent = it.output;
-      $('.tag-editor', node).value = (it.tags||[]).join(' ');
+      $('.tag-editor', node).value = (it.tags||[]).join(', ');
 
       const starBtn = $('.star', node);
       starBtn.textContent = it.starred ? '★' : '☆';
@@ -443,7 +458,7 @@
         toast('Deleted','warn');
       };
       $('.tag-editor', node).addEventListener('change', async (e)=>{
-        it.tags = e.target.value.split(/[,\s]+/).filter(Boolean);
+        it.tags = e.target.value.split(/,+/).map(s=>s.trim()).filter(Boolean);
         await HookMillDB.put(it);
         refreshLibraryFilters();
       });
@@ -550,10 +565,8 @@
     obs.observe($('#mini-stream'), { childList:true, characterData:true, subtree:true });
 
     // hijack stream setter to mini-pre
-    const origSetOutput = setOutput;
     setOutputMini = (t)=>{ $('#mini-stream').textContent = t; };
     // patch streaming target for mini only
-    const setOutputBackup = window.__setOutput;
     window.__setOutput = setOutputMini;
     // restore after 5s of inactivity? not needed; will restore on close
   }
@@ -566,17 +579,6 @@
     state.aborter = null;
     state.selectedItemId = null;
   }
-
-  // Override setOutput hook-aware
-  let setOutputMini = null;
-  const _setOutputReal = setOutput;
-  window.__setOutput = undefined;
-  function setOutputPatched(text){
-    if (window.__setOutput) return window.__setOutput(text);
-    return _setOutputReal(text);
-  }
-  // replace references
-  setOutput = setOutputPatched;
 
   // ===== Event binding =====
   // Preset tabs
@@ -646,7 +648,7 @@
   $('#seed').addEventListener('input', updateLengthCounters);
 
   $('#btn-generate').onclick = ()=> runGenerate({batch:1});
-  $('#btn-batch').onclick = ()=> runGenerate({batch: clamp(DEFAULTS.batchSize,1,10)});
+  $('#btn-batch').onclick = ()=> runGenerate({batch: clamp(Settings.get().batchSize,1,10)});
   $('#btn-stop').onclick = stopGeneration;
   $('#btn-new').onclick = ()=>{
     if (state.running) stopGeneration();
@@ -713,6 +715,7 @@
   // Render initial
   Settings.load();
   updateLengthCounters();
+  setOutput('');
 
   // ===== Status msg heartbeat =====
   let lastLen = 0;
