@@ -693,6 +693,9 @@
     } else {
       settingsOverlay.hidden = false;
       settingsDrawer.hidden = false;
+      // Ensure display is set correctly
+      settingsOverlay.style.display = 'block';
+      settingsDrawer.style.display = 'flex';
       btnSettings.setAttribute('aria-expanded', 'true');
       Settings.load();
     }
@@ -702,9 +705,14 @@
   settingsOverlay.addEventListener('click', closeSettings);
 
   function closeSettings(){
+    console.log('closeSettings called');
     settingsOverlay.hidden = true;
     settingsDrawer.hidden = true;
+    // Also set display to none to ensure it's hidden
+    settingsOverlay.style.display = 'none';
+    settingsDrawer.style.display = 'none';
     btnSettings.setAttribute('aria-expanded', 'false');
+    console.log('Settings should be hidden now');
   }
 
   $('#btn-save-settings').addEventListener('click', () => {
