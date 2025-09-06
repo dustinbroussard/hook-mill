@@ -3,8 +3,8 @@
   --bg: #260051;
   --bg-alt: #752FE7;
   --panel: #110036;
-  --muted: #7a8296;
-  --text: #e8ecf1;
+  --muted: #aaa1c6;
+  --text: #ffffff;
   --accent: #752FE7;
   --accent-2: #AD720E;
   --danger: #ef4444;
@@ -58,7 +58,7 @@ button:disabled{opacity:.5;cursor:not-allowed;box-shadow:var(--shadow);}
 .logo{width:1.5rem;height:1.5rem;}
 .header-actions{display:flex;gap:0.5rem;align-items:center;}
 .btn{
-  background:var(--panel);border:1px solid rgba(255,255,255,0.08);color:var(--text);
+  background:var(--bg);border:1px solid rgba(255,255,255,0.08);color:var(--text);
   padding:0.5rem 0.875rem;border-radius:var(--radius);cursor:pointer;
   box-shadow:var(--shadow);
 }
