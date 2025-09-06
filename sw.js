@@ -1,19 +1,35 @@
 const CACHE_NAME = 'hook-mill-v1';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/app.js',
-  '/db.js',
-  '/presets.js',
-  '/manifest.webmanifest',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png'
+  './',
+  './index.html',
+  './styles.css',
+  './app.js',
+  './db.js',
+  './presets.js',
+  './manifest.webmanifest',
+  './icons/icon-192.png',
+  './icons/icon-512.png'
 ];
+
+// During install we try to cache all assets.  Previously a single failed
+// request (e.g. due to a 404 when the app is served from a sub-path) would
+// reject `cache.addAll` and abort the entire install event, causing the
+// "Failed to execute 'addAll' on 'Cache': Request failed" error.  To make the
+// service worker more resilient we cache assets individually and ignore
+// failures so the install event can still complete.
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
-  );
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    await Promise.all(
+      ASSETS.map(async asset => {
+        try {
+          await cache.add(asset);
+        } catch (err) {
+          console.warn('SW: failed to cache', asset, err);
+        }
+      })
+    );
+  })());
 });
 self.addEventListener('activate', event => {
   event.waitUntil(
