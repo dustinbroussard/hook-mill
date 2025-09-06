@@ -192,3 +192,14 @@ button:disabled{opacity:.5;cursor:not-allowed;box-shadow:var(--shadow);}
   .library-filters{flex-direction:column;align-items:stretch;}
   .settings{width:100%;}
 }
+
+h1 {
+    display: block;
+    font-size: 1.3em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
