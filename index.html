@@ -1,6 +1,6 @@
 <!-- index.html -->
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -20,6 +20,7 @@
       <button id="btn-new" class="btn" aria-label="New session (clear output)">New</button>
       <button id="btn-library" class="btn" aria-controls="library-panel" aria-expanded="false">Library</button>
       <button id="btn-settings" class="btn btn-primary" aria-controls="settings-drawer" aria-expanded="false">Settings</button>
+      <button id="btn-theme" class="btn" aria-label="Toggle light/dark theme">☀️</button>
     </div>
   </header>
 
@@ -225,5 +226,19 @@
   <script src="presets.js"></script>
   <script src="db.js"></script>
   <script src="app.js"></script>
+  <script>
+    (function(){
+      const root = document.documentElement;
+      const btn = document.getElementById("btn-theme");
+      if(btn){
+        const setIcon = () => { btn.textContent = root.dataset.theme === "dark" ? "☀️" : "🌙"; };
+        setIcon();
+        btn.addEventListener("click", () => {
+          root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+          setIcon();
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
