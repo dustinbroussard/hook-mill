@@ -1,12 +1,12 @@
 /* styles.css */
 :root {
-  --bg: #0f172a;
-  --bg-alt: #1e293b;
-  --panel: #334155;
-  --muted: #94a3b8;
-  --text: #f1f5f9;
-  --accent: #3b82f6;
-  --accent-2: #8b5cf6;
+  --bg: #260051;
+  --bg-alt: #752FE7;
+  --panel: #110036;
+  --muted: #7a8296;
+  --text: #e8ecf1;
+  --accent: #752FE7;
+  --accent-2: #AD720E;
   --danger: #ef4444;
   --good: #10b981;
   --warn: #f59e0b;
@@ -14,16 +14,17 @@
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   --sans: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   --radius: 1rem;
-  --shadow: 0 4px 6px rgba(0,0,0,0.25),0 2px 4px rgba(0,0,0,0.15);
-  --shadow-hover: 0 10px 15px rgba(0,0,0,0.3),0 4px 6px rgba(0,0,0,0.2);
-  --trans: 0.25s ease-in-out;
+  --radius-sm: 0.75rem;
+  --shadow: 0 4px 6px rgba(0,0,0,0.25),0 1px 3px rgba(0,0,0,0.12);
+  --shadow-hover: 0 8px 16px rgba(0,0,0,0.3),0 4px 6px rgba(0,0,0,0.15);
+  --trans: 0.3s ease;
 }
 :root[data-theme="light"] {
-  --bg: #f8fafc;
+  --bg: #f5f7fa;
   --bg-alt: #e2e8f0;
   --panel: #ffffff;
   --muted: #64748b;
-  --text: #0f172a;
+  --text: #1e293b;
   --accent: #3b82f6;
   --accent-2: #8b5cf6;
   --ring: #4f46e5;
