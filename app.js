@@ -180,11 +180,11 @@
   function autoTagsFor(text){
     const t = text.toLowerCase();
     const tags = new Set();
-    if (/\btruck|chevy|beer|boots|county|barstool|whiskey|mud\b/.test(t)) tags.add('#country');
-    if (/\bvintage|needle|vinyl|spindle| jukebox|cassette|tape\b/.test(t)) tags.add('#vintage');
-    if (/\byell|mosh|pit|leather|amp|snare\b/.test(t)) tags.add('#punk');
-    if (/\bgrandma|uncle|neighbor|teacher\b/.test(t)) tags.add('#character');
-    if (/\bvape|tiktok|meme|wifi|dm\b/.test(t)) tags.add('#meme');
+    if (/\b(truck|chevy|beer|boots|county|barstool|whiskey|mud)\b/.test(t)) tags.add('#country');
+    if (/\b(vintage|needle|vinyl|spindle|jukebox|cassette|tape)\b/.test(t)) tags.add('#vintage');
+    if (/\b(yell|mosh|pit|leather|amp|snare)\b/.test(t)) tags.add('#punk');
+    if (/\b(grandma|uncle|neighbor|teacher)\b/.test(t)) tags.add('#character');
+    if (/\b(vape|tiktok|meme|wifi|dm)\b/.test(t)) tags.add('#meme');
     return Array.from(tags);
   }
 
