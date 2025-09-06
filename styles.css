@@ -159,3 +159,14 @@ button:disabled{opacity:.5;cursor:not-allowed;box-shadow:var(--shadow);}
   .main-grid{grid-template-columns:1fr;}
   .compose{position:static;}
 }
+
+install-banner{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:10px;background:var(--panel);border-top:1px solid #22283a;z-index:5}
+.install-banner[hidden]{display:none}
+.install-actions{display:flex;gap:8px}
+
+
+/* Mobile tweaks */
+@media (max-width:600px){
+  .app-header{flex-wrap:wrap;gap:0.5rem;}
+  .header-actions{flex-wrap:wrap;justify-content:center;}
+}

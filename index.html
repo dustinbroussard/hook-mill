@@ -7,12 +7,15 @@
   <title>Hook Mill</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
   <link rel="stylesheet" href="styles.css"/>
+  <meta name="description" content="Hook Mill - generate catchy song hooks quickly"/>
+  <link rel="stylesheet" href="styles.min.css"/>
 </head>
 <body>
   <header class="app-header">
     <div class="branding">
       <img src="favicon.svg" alt="" class="logo"/>
-      <h1>Hook Mill</h1>
+      <img src="favicon.svg" alt="Hook Mill logo" class="logo" decoding="async"/>
+      <h1>Hook Mill</h1><!-- index.html -->
     </div>
     <div class="header-actions">
       <span id="model-badge" class="badge model" title="Current model">model</span>
@@ -20,7 +23,6 @@
       <button id="btn-new" class="btn" aria-label="New session (clear output)">New</button>
       <button id="btn-library" class="btn" aria-controls="library-panel" aria-expanded="false">Library</button>
       <button id="btn-settings" class="btn btn-primary" aria-controls="settings-drawer" aria-expanded="false">Settings</button>
-      <button id="btn-theme" class="btn" aria-label="Toggle light/dark theme">☀️</button>
     </div>
   </header>
 
@@ -32,6 +34,7 @@
       <div class="preset-tabs" role="tablist" aria-label="Presets">
         <button role="tab" data-preset="FULL" aria-selected="false">Full Song</button>
         <button role="tab" data-preset="TRUNCATED" aria-selected="false">Truncated Viral</button>
+@@ -200,30 +202,39 @@
         <button role="tab" data-preset="CHORUS" aria-selected="false">Chorus</button>
         <button role="tab" data-preset="HOOK" aria-selected="true">Hook</button>
         <button role="tab" data-preset="TITLE" aria-selected="false">Title</button>
@@ -222,23 +225,18 @@
   </template>
 
   <div id="toasts" class="toasts" aria-live="polite"></div>
+  <div id="install-banner" class="install-banner" hidden>
+    <span>Install Hook Mill?</span>
+    <div class="install-actions">
+      <button id="install-btn" class="btn btn-primary">Install</button>
+      <button id="install-dismiss" class="btn">Not now</button>
+    </div>
+  </div>
+
 
   <script src="presets.js"></script>
   <script src="db.js"></script>
   <script src="app.js"></script>
-  <script>
-    (function(){
-      const root = document.documentElement;
-      const btn = document.getElementById("btn-theme");
-      if(btn){
-        const setIcon = () => { btn.textContent = root.dataset.theme === "dark" ? "☀️" : "🌙"; };
-        setIcon();
-        btn.addEventListener("click", () => {
-          root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
-          setIcon();
-        });
-      }
-    })();
-  </script>
+  <script src="bundle.min.js" defer></script>
 </body>
 </html>

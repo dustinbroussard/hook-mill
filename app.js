@@ -2,6 +2,19 @@
 (() => {
   const { DEFAULTS, CAPS, buildSystem, REFINE } = window.HOOK_MILL_PRESETS;
 
+  // Theme toggle without blocking render
+  (function(){
+    const root = document.documentElement;
+    const btn = document.getElementById('btn-theme');
+    if(!btn) return;
+    const setIcon = ()=>{ btn.textContent = root.dataset.theme === 'dark' ? '☀️' : '🌙'; };
+    setIcon();
+    btn.addEventListener('click', ()=>{
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      setIcon();
+    });
+  })();
+
   // ===== Utilities =====
   const $ = (sel, root=document) => root.querySelector(sel);
   const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
@@ -18,6 +31,36 @@
   const approxTokens = (str) => Math.max(1, Math.round(str.length/4));
   const wordCount = (s) => (s.trim().match(/\b[\w’']+\b/g)||[]).length;
 
+// ===== PWA Setup =====
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js');
+    });
+  }
+  let deferredPrompt;
+  let installDismissed = false;
+  const installBanner = $('#install-banner');
+  const btnInstall = $('#btn-install');
+  const btnDismissInstall = $('#btn-dismiss-install');
+  const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (!isStandalone() && !installDismissed) installBanner.hidden = false;
+  });
+  btnInstall.addEventListener('click', async () => {
+    installBanner.hidden = true;
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+  });
+  btnDismissInstall.addEventListener('click', () => {
+    installBanner.hidden = true;
+    installDismissed = true;
+    deferredPrompt = null;
+  });
+  
   // ULID-ish
   function ulid(){
     const t = Date.now().toString(36).padStart(10,'0');
@@ -482,8 +525,33 @@
       if (it.model) models.add(it.model);
     });
     const tagVal = tagSel.value, modelVal = modelSel.value;
-    tagSel.innerHTML = `<option value="">All Tags</option>` + Array.from(tags).sort().map(t=>`<option>${t}</option>`).join('');
-    modelSel.innerHTML = `<option value="">All Models</option>` + Array.from(models).sort().map(m=>`<option>${m}</option>`).join('');
+  
+  // Populate tag filter safely to avoid XSS via tag names
+    tagSel.innerHTML = '';
+    const tagDefault = document.createElement('option');
+    tagDefault.value = '';
+    tagDefault.textContent = 'All Tags';
+    tagSel.appendChild(tagDefault);
+    Array.from(tags).sort().forEach(t => {
+      const opt = document.createElement('option');
+      opt.value = t;
+      opt.textContent = t;
+      tagSel.appendChild(opt);
+    });
+
+    // Populate model filter safely
+    modelSel.innerHTML = '';
+    const modelDefault = document.createElement('option');
+    modelDefault.value = '';
+    modelDefault.textContent = 'All Models';
+    modelSel.appendChild(modelDefault);
+    Array.from(models).sort().forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = m;
+      opt.textContent = m;
+      modelSel.appendChild(opt);
+    });
+
     tagSel.value = tagVal || '';
     modelSel.value = modelVal || '';
   }
