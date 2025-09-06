@@ -2,16 +2,27 @@
 (() => {
   const { DEFAULTS, CAPS, buildSystem, REFINE } = window.HOOK_MILL_PRESETS;
 
-  // Theme toggle without blocking render
+  // Theme toggle with persistence and system preference
   (function(){
     const root = document.documentElement;
+    const THEME_KEY = 'HM_THEME';
     const btn = document.getElementById('btn-theme');
+    const stored = localStorage.getItem(THEME_KEY);
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = stored || (prefersDark ? 'dark' : 'light');
     if(!btn) return;
-    const setIcon = ()=>{ btn.textContent = root.dataset.theme === 'dark' ? '☀️' : '🌙'; };
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const setIcon = () => { btn.textContent = root.dataset.theme === 'dark' ? '☀️' : '🌙'; };
+    const applyThemeColor = () => {
+      if(meta) meta.setAttribute('content', getComputedStyle(root).getPropertyValue('--bg').trim());
+    };
     setIcon();
+    applyThemeColor();
     btn.addEventListener('click', ()=>{
       root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem(THEME_KEY, root.dataset.theme);
       setIcon();
+      applyThemeColor();
     });
   })();
 
