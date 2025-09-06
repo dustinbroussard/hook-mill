@@ -681,20 +681,27 @@
   });
 
   // Settings open/close
-  $('#btn-settings').onclick = ()=>{
+  // Settings drawer open/close
+  $('#btn-settings').addEventListener('click', () => {
     $('#settings-overlay').hidden = false;
     $('#settings-drawer').hidden = false;
     $('#btn-settings').setAttribute('aria-expanded', 'true');
     Settings.load();
-  };
-  $('#btn-close-settings').onclick = closeSettings;
-  $('#settings-overlay').onclick = closeSettings;
+  });
+
+  $('#btn-close-settings').addEventListener('click', closeSettings);
+  $('#settings-overlay').addEventListener('click', closeSettings);
+
   function closeSettings(){
     $('#settings-overlay').hidden = true;
     $('#settings-drawer').hidden = true;
     $('#btn-settings').setAttribute('aria-expanded','false');
   }
-  $('#btn-save-settings').onclick = ()=>Settings.save();
+
+  $('#btn-save-settings').addEventListener('click', () => {
+    Settings.save();
+    closeSettings();
+  });
   $('#btn-clear-data').onclick = async ()=>{
     if (!confirm('Clear ALL data (settings + library)?')) return;
     await HookMillDB.clearAll();
