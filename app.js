@@ -682,11 +682,17 @@
 
   // Settings open/close
   // Settings drawer open/close
-  $('#btn-settings').addEventListener('click', () => {
-    $('#settings-overlay').hidden = false;
-    $('#settings-drawer').hidden = false;
-    $('#btn-settings').setAttribute('aria-expanded', 'true');
-    Settings.load();
+  const btnSettings = $('#btn-settings');
+  btnSettings.addEventListener('click', () => {
+    const isOpen = btnSettings.getAttribute('aria-expanded') === 'true';
+    if (isOpen) {
+      closeSettings();
+    } else {
+      $('#settings-overlay').hidden = false;
+      $('#settings-drawer').hidden = false;
+      btnSettings.setAttribute('aria-expanded', 'true');
+      Settings.load();
+    }
   });
 
   $('#btn-close-settings').addEventListener('click', closeSettings);
