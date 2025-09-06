@@ -12,7 +12,11 @@
     root.dataset.theme = stored || (prefersDark ? 'dark' : 'light');
     if(!btn) return;
     const meta = document.querySelector('meta[name="theme-color"]');
-    const setIcon = () => { btn.textContent = root.dataset.theme === 'dark' ? '☀️' : '🌙'; };
+    const setIcon = () => {
+      btn.innerHTML = root.dataset.theme === 'dark'
+        ? '<i class="fa-solid fa-sun" aria-hidden="true"></i>'
+        : '<i class="fa-solid fa-moon" aria-hidden="true"></i>';
+    };
     const applyThemeColor = () => {
       if(meta) meta.setAttribute('content', getComputedStyle(root).getPropertyValue('--bg').trim());
     };
