@@ -1,12 +1,12 @@
 /* styles.css */
 :root {
-  --bg: #0f1117;
-  --bg-alt: #1a1c24;
-  --panel: #1a1c24;
+  --bg: #260051;
+  --bg-alt: #752FE7;
+  --panel: #110036;
   --muted: #7a8296;
   --text: #e8ecf1;
-  --accent: #67e8f9;
-  --accent-2: #a78bfa;
+  --accent: #752FE7;
+  --accent-2: #AD720E;
   --danger: #ef4444;
   --good: #10b981;
   --warn: #f59e0b;

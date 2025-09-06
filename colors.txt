@@ -1,0 +1,4 @@
+#110036 blue
+#120F85 lighter blue
+#AD720E gold
+#752FE7 purple 
