@@ -1,11 +1,11 @@
 /* styles.css */
 :root {
-  --bg: #260051;
-  --bg-alt: #752FE7;
-  --panel: #110036;
-  --muted: #aaa1c6;
+  --bg: #090028;
+  --bg-alt: #26039c;
+  --panel: #100053;
+  --muted: #c0b898;
   --text: #ffffff;
-  --accent: #752FE7;
+  --accent: #7326e0;
   --accent-2: #AD720E;
   --danger: #ef4444;
   --good: #10b981;
