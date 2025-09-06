@@ -680,28 +680,31 @@
     });
   });
 
-  // Settings open/close
   // Settings drawer open/close
   const btnSettings = $('#btn-settings');
+  const settingsDrawer = $('#settings-drawer');
+  const settingsOverlay = $('#settings-overlay');
+  const btnCloseSettings = $('#btn-close-settings');
+  
   btnSettings.addEventListener('click', () => {
     const isOpen = btnSettings.getAttribute('aria-expanded') === 'true';
     if (isOpen) {
       closeSettings();
     } else {
-      $('#settings-overlay').hidden = false;
-      $('#settings-drawer').hidden = false;
+      settingsOverlay.hidden = false;
+      settingsDrawer.hidden = false;
       btnSettings.setAttribute('aria-expanded', 'true');
       Settings.load();
     }
   });
 
-  $('#btn-close-settings').addEventListener('click', closeSettings);
-  $('#settings-overlay').addEventListener('click', closeSettings);
+  btnCloseSettings.addEventListener('click', closeSettings);
+  settingsOverlay.addEventListener('click', closeSettings);
 
   function closeSettings(){
-    $('#settings-overlay').hidden = true;
-    $('#settings-drawer').hidden = true;
-    $('#btn-settings').setAttribute('aria-expanded','false');
+    settingsOverlay.hidden = true;
+    settingsDrawer.hidden = true;
+    btnSettings.setAttribute('aria-expanded', 'false');
   }
 
   $('#btn-save-settings').addEventListener('click', () => {
