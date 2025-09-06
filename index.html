@@ -8,7 +8,8 @@
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#0c0d10">
   <meta name="color-scheme" content="dark light">
-  <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <meta name="description" content="Hook Mill - generate catchy song hooks quickly">
 </head>
 <body>
@@ -20,12 +21,12 @@
     <div class="header-actions">
       <span id="model-badge" class="badge model" title="Current model">model</span>
       <span id="conn-dot" class="conn-dot" role="status" aria-live="polite" title="Connection status"></span>
-      <button type="button" id="btn-theme" class="btn" aria-label="Toggle light or dark theme">🌙</button>
-      <button type="button" id="btn-new" class="btn" aria-label="New session (clear output)">New</button>
-      <button type="button" id="btn-library" class="btn" aria-controls="library-panel" aria-expanded="false">Library</button>
-      <button type="button" id="btn-settings" class="btn btn-primary" aria-controls="settings-drawer" aria-expanded="false">Settings</button>
-    </div>
-  </header>
+        <button type="button" id="btn-theme" class="btn" aria-label="Toggle light or dark theme"><i class="fa-solid fa-sun" aria-hidden="true"></i></button>
+        <button type="button" id="btn-new" class="btn" aria-label="New session (clear output)"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+        <button type="button" id="btn-library" class="btn" aria-label="Library" aria-controls="library-panel" aria-expanded="false"><i class="fa-solid fa-book" aria-hidden="true"></i></button>
+        <button type="button" id="btn-settings" class="btn btn-primary" aria-label="Settings" aria-controls="settings-drawer" aria-expanded="false"><i class="fa-solid fa-gear" aria-hidden="true"></i></button>
+      </div>
+    </header>
 
   <main class="main-grid">
     <!-- Compose Pane -->
