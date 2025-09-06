@@ -2,7 +2,7 @@
   "name": "Hook Mill",
   "short_name": "HookMill",
   "description": "Compose hooks and lyrics with Hook Mill",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0c0d10",
