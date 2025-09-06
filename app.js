@@ -42,24 +42,26 @@
   const installBanner = $('#install-banner');
   const btnInstall = $('#btn-install');
   const btnDismissInstall = $('#btn-dismiss-install');
-  const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (!isStandalone() && !installDismissed) installBanner.hidden = false;
-  });
-  btnInstall.addEventListener('click', async () => {
-    installBanner.hidden = true;
-    if (!deferredPrompt) return;
-    deferredPrompt.prompt();
-    await deferredPrompt.userChoice;
-    deferredPrompt = null;
-  });
-  btnDismissInstall.addEventListener('click', () => {
-    installBanner.hidden = true;
-    installDismissed = true;
-    deferredPrompt = null;
-  });
+  if (installBanner && btnInstall && btnDismissInstall) {
+    const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (!isStandalone() && !installDismissed) installBanner.hidden = false;
+    });
+    btnInstall.addEventListener('click', async () => {
+      installBanner.hidden = true;
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+    });
+    btnDismissInstall.addEventListener('click', () => {
+      installBanner.hidden = true;
+      installDismissed = true;
+      deferredPrompt = null;
+    });
+  }
   
   // ULID-ish
   function ulid(){

@@ -76,7 +76,7 @@ button:disabled{opacity:.5;cursor:not-allowed;box-shadow:var(--shadow);}
 .conn-dot{width:10px;height:10px;border-radius:50%;display:inline-block;background:#555;border:1px solid #333;}
 .conn-ok{background:var(--good);} .conn-warn{background:var(--warn);} .conn-bad{background:var(--danger);}
 .main-grid{
-  display:grid;grid-template-columns:420px 1fr;gap:1rem;padding:1rem;align-items:start;
+  display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:1rem;padding:1rem;align-items:start;
 }
 .compose,.output,.library,.settings,.modal{
   background:var(--panel);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius);
@@ -111,7 +111,7 @@ button:disabled{opacity:.5;cursor:not-allowed;box-shadow:var(--shadow);}
   padding:0.5rem;font-size:0.9rem;box-shadow:var(--shadow);
 }
 .inline{display:flex;gap:0.625rem;align-items:center;flex-wrap:wrap;}
-.lib-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:0.75rem;}
+.lib-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:0.75rem;}
 .lib-card{padding:0.625rem;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,0.08);background:var(--bg);box-shadow:var(--shadow);}
 .lib-card-head{display:flex;justify-content:space-between;align-items:start;margin-bottom:0.375rem;}
 .lib-title{font-weight:600;margin-bottom:0.25rem;max-width:36ch;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -160,7 +160,7 @@ button:disabled{opacity:.5;cursor:not-allowed;box-shadow:var(--shadow);}
   .compose{position:static;}
 }
 
-install-banner{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:10px;background:var(--panel);border-top:1px solid #22283a;z-index:5}
+.install-banner{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:10px;background:var(--panel);border-top:1px solid #22283a;z-index:5}
 .install-banner[hidden]{display:none}
 .install-actions{display:flex;gap:8px}
 
@@ -169,4 +169,7 @@ install-banner{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:c
 @media (max-width:600px){
   .app-header{flex-wrap:wrap;gap:0.5rem;}
   .header-actions{flex-wrap:wrap;justify-content:center;}
+  .output-scroller{height:60vh;}
+  .library-filters{flex-direction:column;align-items:stretch;}
+  .settings{width:100%;}
 }
